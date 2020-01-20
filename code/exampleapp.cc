@@ -253,7 +253,7 @@ ExampleApplication::Run()
 
     const Ptr<Input::Keyboard>& keyboard = inputServer->GetDefaultKeyboard();
     const Ptr<Input::Mouse>& mouse = inputServer->GetDefaultMouse();
-    
+
     Graphics::GraphicsEntityId exampleEntity = Graphics::CreateEntity();
     // Register entity to various graphics contexts.
     // The template parameters are which contexts that the entity should be registered to.
@@ -266,6 +266,17 @@ ExampleApplication::Run()
     ModelContext::SetTransform(exampleEntity, Math::matrix44::translation(Math::point(0, 0, 0)));
     // Setup the observable as a model
     ObservableContext::Setup(exampleEntity, VisibilityEntityType::Model);
+
+
+	//-----------------------------------------------------------------
+	//model test
+	Graphics::GraphicsEntityId gussimEntity = Graphics::CreateEntity();
+	Graphics::RegisterEntity<ModelContext, ObservableContext>(gussimEntity);
+	ModelContext::Setup(gussimEntity, "mdl:attachments/Catapult_Spikes.n3", "Examples");
+	ModelContext::SetTransform(gussimEntity, Math::matrix44::translation(Math::point(5, 5, -5)));
+	ObservableContext::Setup(gussimEntity, VisibilityEntityType::Model);
+	//-----------------------------------------------------------------
+
 
     // Example animated entity
     Graphics::GraphicsEntityId animatedEntity = Graphics::CreateEntity();
