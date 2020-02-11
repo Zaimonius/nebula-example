@@ -13,6 +13,12 @@ nebula_begin_app(nebula-example windowed)
     
     fips_dir(code)
         fips_files(
+			GameEntity.cc
+            GameEntity.h
+			BaseComponent.cc
+            BaseComponent.h
+			EntityManager.cc
+            EntityManager.h
             main.cc
             exampleapp.cc
             exampleapp.h

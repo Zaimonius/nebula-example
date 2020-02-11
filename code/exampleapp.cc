@@ -275,6 +275,28 @@ ExampleApplication::Run()
 	ModelContext::Setup(gussimEntity, "mdl:attachments/Catapult_Spikes.n3", "Examples");
 	ModelContext::SetTransform(gussimEntity, Math::matrix44::translation(Math::point(5, 5, -5)));
 	ObservableContext::Setup(gussimEntity, VisibilityEntityType::Model);
+
+	Graphics::GraphicsEntityId environmentEntity = Graphics::CreateEntity();
+	Graphics::RegisterEntity<ModelContext, ObservableContext>(environmentEntity);
+	ModelContext::Setup(environmentEntity, "mdl:environment/Mountains_01.n3", "Examples");
+	ModelContext::SetTransform(environmentEntity, Math::matrix44::translation(Math::point(50, 0, 0)));
+	ObservableContext::Setup(environmentEntity, VisibilityEntityType::Model);
+
+	Graphics::GraphicsEntityId environmentEntity2 = Graphics::CreateEntity();
+	Graphics::RegisterEntity<ModelContext, ObservableContext>(environmentEntity2);
+	ModelContext::Setup(environmentEntity2, "mdl:environment/Groundplane.n3", "Examples");
+	ModelContext::SetTransform(environmentEntity2, Math::matrix44::translation(Math::point(0, 0, 0)));
+	ObservableContext::Setup(environmentEntity2, VisibilityEntityType::Model);
+
+
+	//animated model test
+	Graphics::GraphicsEntityId animatedEntity2 = Graphics::CreateEntity();
+	Graphics::RegisterEntity<ModelContext, ObservableContext, Characters::CharacterContext>(animatedEntity2);
+	ModelContext::Setup(animatedEntity2, "mdl:Units/unit_king.n3", "Examples");
+	ModelContext::SetTransform(animatedEntity2, Math::matrix44::translation(Math::point(5, 0, 5)));
+	ObservableContext::Setup(animatedEntity2, VisibilityEntityType::Model);
+	Characters::CharacterContext::Setup(animatedEntity2, "ske:Units/unit_king.nsk3", "ani:Units/unit_king.nax3", "Examples");
+	Characters::CharacterContext::PlayClip(animatedEntity2, nullptr, 0, 0, Characters::Append, 1.0f, 1, Math::n_rand() * 100.0f, 0.0f, 0.0f, Math::n_rand() * 100.0f);
 	//-----------------------------------------------------------------
 
 
@@ -295,7 +317,7 @@ ExampleApplication::Run()
     Graphics::GraphicsEntityId pointLight = Graphics::CreateEntity();
     // You can also register to contexts directly
     Lighting::LightContext::RegisterEntity(pointLight);
-    Lighting::LightContext::SetupPointLight(pointLight, Math::float4(4.5, 0.5, 0.2, 1), 10.0f, Math::matrix44::translation(1, 2, 1), 100.0f, true);
+    Lighting::LightContext::SetupPointLight(pointLight, Math::float4(4.5, 0, 0.2, 1), 10.0f, Math::matrix44::translation(1, 2, 1), 100.0f, true);
 
     while (run && !inputServer->IsQuitRequested())
     {   
