@@ -35,11 +35,17 @@ public:
 	/// <summary>
 	/// method for creating a new entity with an array of component and register it to the hash table 
 	/// </summary>
-	/// <param name="entityID"></param>
-	/// <param name="components"></param>
+	/// <param name="entityID">id of the entity</param>
+	/// <param name="components">the component you want the entity to have</param>
 	void createEntity(Util::StringAtom entityID, Util::Array<BaseComponent> components);
+	/// <summary>
+	/// method for getting an entity from the hashtable
+	/// </summary>
+	/// <param name="key">the entityID you wish to get</param>
+	/// <returns>an entity</returns>
+	GameEntity* getEntity(Util::StringAtom key);
 private:
-	Util::HashTable<Util::StringAtom,GameEntity> _entities();
+	Util::HashTable<Util::StringAtom,GameEntity*> _entities;
 	static EntityManager* instance;
 };
 

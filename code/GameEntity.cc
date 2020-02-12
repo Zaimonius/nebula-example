@@ -68,3 +68,12 @@ void GameEntity::removeComponent(BaseComponent* component)
 		}
 	}
 }
+
+Util::StringAtom GameEntity::getID()
+{
+	return this->ID;
+}
+
+void GameEntity::onMessage(Message msg)
+{
+}

@@ -2,6 +2,9 @@
 #include "util/stringatom.h"
 #include "util/array.h"
 #include "BaseComponent.h"
+#include "MessageDispatcher.h"
+
+
 
 class GameEntity
 {
@@ -52,8 +55,18 @@ public:
 	/// </summary>
 	/// <param name="component">pointer to the component you want to remove</param>
 	void removeComponent(BaseComponent* component);
-	Util::StringAtom ID;
+	/// <summary>
+	/// method for getting an ID
+	/// </summary>
+	/// <returns>the </returns>
+	Util::StringAtom getID();
+	/// <summary>
+	/// method for receiving a message
+	/// </summary>
+	/// <param name="msg">the message received</param>
+	void onMessage(Message msg);
 private:
+	Util::StringAtom ID;
 	Util::Array<BaseComponent*> _components;
 };
 

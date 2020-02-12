@@ -1,5 +1,5 @@
 #pragma once
-#include "util.h"
+#include "MessageDispatcher.h"
 
 class BaseComponent
 {
@@ -24,5 +24,6 @@ public:
 	/// virtual void init method for all components
 	/// </summary>
 	virtual void shutdown() = 0;
+	virtual void recieveMessage(Message msg) = 0;
 private:
 };
