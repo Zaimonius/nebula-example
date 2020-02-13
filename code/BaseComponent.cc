@@ -1,9 +1,9 @@
 #pragma once
 #include "BaseComponent.h"
-BaseComponent::BaseComponent()
+ECS::BaseComponent::BaseComponent()
 {
 }
 
-BaseComponent::~BaseComponent()
+ECS::BaseComponent::~BaseComponent()
 {
 }

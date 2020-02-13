@@ -3,12 +3,17 @@
 #include "util/array.h"
 #include "BaseComponent.h"
 
-class GraphicsComponent : public BaseComponent
+namespace ECS
 {
-public:
-	GraphicsComponent();
-	~GraphicsComponent();
 
-private:
+	class TransformComponent : public ECS::BaseComponent
+	{
+	public:
+		TransformComponent();
+		~TransformComponent();
 
-};
+	private:
+
+	};
+
+}

@@ -1,33 +1,33 @@
 #pragma once
 #include "MessageDispatcher.h"
 
+ECS::MessageDispatcher* ECS::MessageDispatcher::instance = nullptr;
 
-
-MessageDispatcher::MessageDispatcher()
+ECS::MessageDispatcher::MessageDispatcher()
 {
-	this->instance = 0;
 }
 
-MessageDispatcher::~MessageDispatcher()
+ECS::MessageDispatcher::~MessageDispatcher()
 {
 	delete this->instance;
 }
 
-MessageDispatcher* MessageDispatcher::getInstance()
+ECS::MessageDispatcher* ECS::MessageDispatcher::getInstance()
 {
-	if (instance == 0)
+	if (instance == nullptr)
 	{
-		instance = new MessageDispatcher();
+		instance = new ECS::MessageDispatcher();
 	}
 	return instance;
 }
 
-void MessageDispatcher::DispatchMessage(Message msg)
+void ECS::MessageDispatcher::DispatchMessage(ECS::Message msg)
 {
-	EntityManager::getInstance()->getEntity(msg.receiverID)->onMessage(msg);
+	ECS::EntityManager::getInstance()->getEntity(msg.receiverID)->onMessage(msg);
 }
 
-void MessageDispatcher::SendMessage(Util::StringAtom senderID, Util::StringAtom receiverID, MessageType message, int delay, void* extraInfo)
+void ECS::MessageDispatcher::SendMessage(Util::StringAtom senderID, Util::StringAtom receiverID, ECS::MessageType message, int delay, void* extraInfo)
 {
-	DispatchMessage(Message(senderID, receiverID, message, delay, extraInfo));
+	DispatchMessage(ECS::Message(senderID, receiverID, message, delay, extraInfo));
 }
+

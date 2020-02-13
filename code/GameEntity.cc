@@ -1,16 +1,16 @@
 #pragma once
 #include "GameEntity.h"
 
-GameEntity::GameEntity()
+ECS::GameEntity::GameEntity()
 {
 }
 
-GameEntity::GameEntity(Util::StringAtom entityID)
+ECS::GameEntity::GameEntity(Util::StringAtom entityID)
 {
 	this->ID = entityID;
 }
 
-GameEntity::GameEntity(Util::StringAtom entityID, Util::Array<BaseComponent*> components)
+ECS::GameEntity::GameEntity(Util::StringAtom entityID, Util::Array<ECS::BaseComponent*> components)
 {
 	this->ID = entityID;
 	for (int i = 0; i < components.size(); i++)
@@ -19,11 +19,11 @@ GameEntity::GameEntity(Util::StringAtom entityID, Util::Array<BaseComponent*> co
 	}
 }
 
-GameEntity::~GameEntity()
+ECS::GameEntity::~GameEntity()
 {
 }
 
-void GameEntity::update()
+void ECS::GameEntity::update()
 {
 	for (int i = 0; i < this->_components.size(); i++)
 	{
@@ -31,7 +31,7 @@ void GameEntity::update()
 	}
 }
 
-void GameEntity::init()
+void ECS::GameEntity::init()
 {
 	for (int i = 0; i < this->_components.size(); i++)
 	{
@@ -39,7 +39,7 @@ void GameEntity::init()
 	}
 }
 
-void GameEntity::shutdown()
+void ECS::GameEntity::shutdown()
 {
 	for (int i = 0; i < this->_components.size(); i++)
 	{
@@ -48,17 +48,17 @@ void GameEntity::shutdown()
 	}
 }
 
-void GameEntity::setID(Util::StringAtom entityID)
+void ECS::GameEntity::setID(Util::StringAtom entityID)
 {
 	this->ID = entityID;
 }
 
-void GameEntity::addComponent(BaseComponent* component)
+void ECS::GameEntity::addComponent(ECS::BaseComponent* component)
 {
 	this->_components.Append(component);
 }
 
-void GameEntity::removeComponent(BaseComponent* component)
+void ECS::GameEntity::removeComponent(ECS::BaseComponent* component)
 {
 	for (int i = 0; i < this->_components.size(); i++)
 	{
@@ -69,11 +69,11 @@ void GameEntity::removeComponent(BaseComponent* component)
 	}
 }
 
-Util::StringAtom GameEntity::getID()
+Util::StringAtom ECS::GameEntity::getID()
 {
 	return this->ID;
 }
 
-void GameEntity::onMessage(Message msg)
+void ECS::GameEntity::onMessage(ECS::Message msg)
 {
 }

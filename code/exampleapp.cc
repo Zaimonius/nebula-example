@@ -272,8 +272,8 @@ ExampleApplication::Run()
 	//model test
 	Graphics::GraphicsEntityId gussimEntity = Graphics::CreateEntity();
 	Graphics::RegisterEntity<ModelContext, ObservableContext>(gussimEntity);
-	ModelContext::Setup(gussimEntity, "mdl:attachments/Catapult_Spikes.n3", "Examples");
 	ModelContext::SetTransform(gussimEntity, Math::matrix44::translation(Math::point(5, 5, -5)));
+	ModelContext::Setup(gussimEntity, "mdl:attachments/Catapult_Spikes.n3", "Examples");
 	ObservableContext::Setup(gussimEntity, VisibilityEntityType::Model);
 
 	Graphics::GraphicsEntityId environmentEntity = Graphics::CreateEntity();
@@ -319,6 +319,8 @@ ExampleApplication::Run()
     Lighting::LightContext::RegisterEntity(pointLight);
     Lighting::LightContext::SetupPointLight(pointLight, Math::float4(4.5, 0, 0.2, 1), 10.0f, Math::matrix44::translation(1, 2, 1), 100.0f, true);
 
+	float newZ = 5;
+
     while (run && !inputServer->IsQuitRequested())
     {   
 #if __NEBULA_HTTP__
@@ -353,7 +355,8 @@ ExampleApplication::Run()
 
         // do stuff after rendering is done
         this->gfxServer->EndFrame();
-
+		ModelContext::SetTransform(animatedEntity2, Math::matrix44::translation(Math::point(5, 0, newZ)));
+		newZ+= 0.01;
         // force wait immediately
         WindowPresent(wnd, frameIndex);
         if (this->inputServer->GetDefaultKeyboard()->KeyPressed(Input::Key::Escape)) run = false;        

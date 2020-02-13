@@ -2,10 +2,12 @@
 #include "TransformComponent.h"
 
 
-GraphicsComponent::GraphicsComponent()
+ECS::TransformComponent::TransformComponent()
 {
+
 }
 
-GraphicsComponent::~GraphicsComponent()
+ECS::TransformComponent::~TransformComponent()
 {
+
 }
