@@ -1,5 +1,11 @@
 #pragma once
 #include "GameEntity.h"
+#include "core/rttimacros.h"
+
+namespace ECS
+{
+	__ImplementClass(ECS::GameEntity, 'GMEN', Core::RefCounted);
+}
 
 ECS::GameEntity::GameEntity()
 {

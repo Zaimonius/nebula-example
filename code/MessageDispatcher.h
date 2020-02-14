@@ -5,7 +5,8 @@
 #include "GameEntity.h"
 #include "EntityManager.h"
 #include <chrono>
-
+#include "core/refcounted.h"
+#include "core/rttimacros.h"
 
 namespace ECS
 {
@@ -32,8 +33,9 @@ namespace ECS
 		}
 	};
 
-	class MessageDispatcher
+	class MessageDispatcher : public Core::RefCounted
 	{
+		__DeclareClass(ECS::MessageDispatcher);
 	public:
 		/// <summary>
 		/// empty constructor

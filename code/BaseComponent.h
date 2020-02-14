@@ -1,13 +1,16 @@
 #pragma once
 #include "MessageDispatcher.h"
+#include "core/refcounted.h"
+#include "core/rttimacros.h"
 
 namespace ECS
 {
 	struct Message;
 
 
-	class BaseComponent
+	class BaseComponent : public Core::RefCounted
 	{
+		__DeclareAbstractClass(ECS::BaseComponent);
 	public:
 		/// <summary>
 		/// empty constructor
@@ -30,6 +33,7 @@ namespace ECS
 		/// </summary>
 		virtual void shutdown() = 0;
 		virtual void recieveMessage(ECS::Message msg) = 0;
+		virtual Util::Array<BaseComponent*> getVars() = 0;
 	private:
 	};
 

@@ -1,6 +1,11 @@
 #pragma once
 #include "EntityManager.h"
 
+namespace ECS
+{
+	__ImplementClass(ECS::EntityManager, 'ENTM', Core::RefCounted);
+}
+
 ECS::EntityManager::EntityManager()
 {
 }

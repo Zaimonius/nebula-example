@@ -1,6 +1,11 @@
 #pragma once
 #include "MessageDispatcher.h"
 
+namespace ECS
+{
+	__ImplementClass(ECS::MessageDispatcher, 'MEDP', Core::RefCounted);
+}
+
 ECS::MessageDispatcher* ECS::MessageDispatcher::instance = nullptr;
 
 ECS::MessageDispatcher::MessageDispatcher()

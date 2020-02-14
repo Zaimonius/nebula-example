@@ -285,7 +285,12 @@ ExampleApplication::Run()
 	Graphics::GraphicsEntityId environmentEntity2 = Graphics::CreateEntity();
 	Graphics::RegisterEntity<ModelContext, ObservableContext>(environmentEntity2);
 	ModelContext::Setup(environmentEntity2, "mdl:environment/Groundplane.n3", "Examples");
-	ModelContext::SetTransform(environmentEntity2, Math::matrix44::translation(Math::point(0, 0, 0)));
+	ModelContext::SetTransform(environmentEntity2, Math::matrix44::translation(Math::point(5, 0, 5)));
+
+	Math::matrix44 transform = Math::matrix44::translation(Math::point(5, 0, 5)) * Math::matrix44::rotationx(45);
+
+	ModelContext::SetTransform(environmentEntity2, transform);
+	
 	ObservableContext::Setup(environmentEntity2, VisibilityEntityType::Model);
 
 

@@ -3,6 +3,8 @@
 #include "util/array.h"
 #include "BaseComponent.h"
 #include "MessageDispatcher.h"
+#include "core/refcounted.h"
+#include "core/rttimacros.h"
 
 namespace ECS
 {
@@ -10,8 +12,9 @@ namespace ECS
 	struct Message;
 
 
-	class GameEntity
+	class GameEntity : public Core::RefCounted
 	{
+		__DeclareClass(ECS::GameEntity);
 	public:
 		/// <summary>
 		/// empty constructor

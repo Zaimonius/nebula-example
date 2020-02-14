@@ -3,14 +3,17 @@
 #include "util/stringatom.h"
 #include "GameEntity.h"
 #include "BaseComponent.h"
+#include "core/refcounted.h"
+#include "core/rttimacros.h"
 
 namespace ECS
 {
 	class BaseComponent;
 	class GameEntity;
 
-	class EntityManager
+	class EntityManager : public Core::RefCounted
 	{
+		__DeclareClass(ECS::EntityManager);
 	public:
 		/// <summary>
 		/// empty constructor
