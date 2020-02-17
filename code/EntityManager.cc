@@ -1,71 +1,78 @@
-#pragma once
 #include "EntityManager.h"
 
 namespace ECS
 {
-	__ImplementClass(ECS::EntityManager, 'ENTM', Core::RefCounted);
-}
-
-ECS::EntityManager::EntityManager()
-{
-}
-
-ECS::EntityManager* ECS::EntityManager::instance = nullptr;
+	__ImplementClass(EntityManager, 'ENTM', Core::RefCounted);
 
 
-ECS::EntityManager::~EntityManager()
-{
-	delete this->instance;
-}
-
-void ECS::EntityManager::update()
-{
-	Util::HashTable< Util::StringAtom, ECS::GameEntity*>::Iterator iterator = this->_entities.Begin();
-	for (int i = 0; i < this->_entities.Size(); i++)
+	EntityManager::EntityManager()
 	{
-		(*iterator.val)->update();
-		iterator++;
 	}
-}
 
-void ECS::EntityManager::init()
-{
-	Util::HashTable< Util::StringAtom, ECS::GameEntity*>::Iterator iterator = this->_entities.Begin();
-	for (int i = 0; i < this->_entities.Size(); i++)
+	EntityManager* EntityManager::instance = nullptr;
+
+
+	EntityManager::~EntityManager()
 	{
-		(*iterator.val)->init();
-		iterator++;
+		delete this->instance;
 	}
-}
 
-void ECS::EntityManager::shutdown()
-{
-	Util::HashTable< Util::StringAtom, ECS::GameEntity*>::Iterator iterator = this->_entities.Begin();
-	for (int i = 0; i < this->_entities.Size(); i++)
+	void EntityManager::update()
 	{
-		(*iterator.val)->shutdown();
-		iterator++;
+		Util::HashTable< Util::StringAtom, GameEntity*>::Iterator iterator = this->_entities.Begin();
+		for (int i = 0; i < this->_entities.Size(); i++)
+		{
+			(*iterator.val)->update();
+			iterator++;
+		}
 	}
-	this->_entities.Clear();
-}
 
-ECS::EntityManager* ECS::EntityManager::getInstance()
-{
-	if (instance == nullptr)
+	void EntityManager::init()
 	{
-		instance = new EntityManager();
+		Util::HashTable< Util::StringAtom, GameEntity*>::Iterator iterator = this->_entities.Begin();
+		for (int i = 0; i < this->_entities.Size(); i++)
+		{
+			(*iterator.val)->init();
+			iterator++;
+		}
 	}
-	return instance;
-}
 
-void ECS::EntityManager::createEntity(Util::StringAtom entityID,Util::Array<BaseComponent> components)
-{
-	ECS::GameEntity *newEntity = new ECS::GameEntity(entityID);
+	void EntityManager::shutdown()
+	{
+		Util::HashTable< Util::StringAtom, GameEntity*>::Iterator iterator = this->_entities.Begin();
+		for (int i = 0; i < this->_entities.Size(); i++)
+		{
+			(*iterator.val)->shutdown();
+			iterator++;
+		}
+		this->_entities.Clear();
+	}
 
-	this->_entities.Add(entityID, newEntity);
-}
+	EntityManager* EntityManager::getInstance()
+	{
+		if (instance == nullptr)
+		{
+			instance = new EntityManager();
+		}
+		return instance;
+	}
 
-ECS::GameEntity* ECS::EntityManager::getEntity(Util::StringAtom key)
-{
-	return this->_entities[key];
+	void EntityManager::createEntity(Util::StringAtom entityID, Util::Array<BaseComponent> components)
+	{
+		GameEntity* newEntity = new GameEntity(entityID);
+
+		this->_entities.Add(entityID, newEntity);
+	}
+
+	GameEntity* EntityManager::getEntity(Util::StringAtom key)
+	{
+		return this->_entities[key];
+	}
+
+	void EntityManager::createCharacter(Util::StringAtom modelName, Util::StringAtom tag, Util::StringAtom entityID, Math::float4 pos)
+	{
+		GameEntity* newChar = &GameEntity::createCharacter(modelName, tag, entityID, pos);
+		this->_entities.Add(entityID, newChar);
+	}
+
 }

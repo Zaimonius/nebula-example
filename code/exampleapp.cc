@@ -32,6 +32,8 @@
 #include "io/fswrapper.h"
 #include "system/nebulasettings.h"
 
+#include "EntityManager.h"
+
 
 #ifdef __WIN32__
 #include <shellapi.h>
@@ -254,69 +256,82 @@ ExampleApplication::Run()
     const Ptr<Input::Keyboard>& keyboard = inputServer->GetDefaultKeyboard();
     const Ptr<Input::Mouse>& mouse = inputServer->GetDefaultMouse();
 
-    Graphics::GraphicsEntityId exampleEntity = Graphics::CreateEntity();
-    // Register entity to various graphics contexts.
-    // The template parameters are which contexts that the entity should be registered to.
-    // ModelContext takes care of loading models and also handles transforms for instances of models.
-    // Registering an entity to the ObservableContext will allow cameras to observe the entity (adds the entity to visibility culling system)
-    Graphics::RegisterEntity<ModelContext, ObservableContext>(exampleEntity);
-    // Setup the entitys model instance
-    ModelContext::Setup(exampleEntity, "mdl:system/placeholder.n3", "Examples");
-    // Set the transform of the entity
-    ModelContext::SetTransform(exampleEntity, Math::matrix44::translation(Math::point(0, 0, 0)));
-    // Setup the observable as a model
-    ObservableContext::Setup(exampleEntity, VisibilityEntityType::Model);
 
 
-	//-----------------------------------------------------------------
-	//model test
-	Graphics::GraphicsEntityId gussimEntity = Graphics::CreateEntity();
-	Graphics::RegisterEntity<ModelContext, ObservableContext>(gussimEntity);
-	ModelContext::SetTransform(gussimEntity, Math::matrix44::translation(Math::point(5, 5, -5)));
-	ModelContext::Setup(gussimEntity, "mdl:attachments/Catapult_Spikes.n3", "Examples");
-	ObservableContext::Setup(gussimEntity, VisibilityEntityType::Model);
-
-	Graphics::GraphicsEntityId environmentEntity = Graphics::CreateEntity();
-	Graphics::RegisterEntity<ModelContext, ObservableContext>(environmentEntity);
-	ModelContext::Setup(environmentEntity, "mdl:environment/Mountains_01.n3", "Examples");
-	ModelContext::SetTransform(environmentEntity, Math::matrix44::translation(Math::point(50, 0, 0)));
-	ObservableContext::Setup(environmentEntity, VisibilityEntityType::Model);
-
-	Graphics::GraphicsEntityId environmentEntity2 = Graphics::CreateEntity();
-	Graphics::RegisterEntity<ModelContext, ObservableContext>(environmentEntity2);
-	ModelContext::Setup(environmentEntity2, "mdl:environment/Groundplane.n3", "Examples");
-	ModelContext::SetTransform(environmentEntity2, Math::matrix44::translation(Math::point(5, 0, 5)));
-
-	Math::matrix44 transform = Math::matrix44::translation(Math::point(5, 0, 5)) * Math::matrix44::rotationx(45);
-
-	ModelContext::SetTransform(environmentEntity2, transform);
-	
-	ObservableContext::Setup(environmentEntity2, VisibilityEntityType::Model);
+    ECS::EntityManager man;
+    man.createCharacter("mdl:attachments/Catapult_Spikes.n3", "catapult", "catapult", Math::float4(0, 0, 0, 1));
 
 
-	//animated model test
-	Graphics::GraphicsEntityId animatedEntity2 = Graphics::CreateEntity();
-	Graphics::RegisterEntity<ModelContext, ObservableContext, Characters::CharacterContext>(animatedEntity2);
-	ModelContext::Setup(animatedEntity2, "mdl:Units/unit_king.n3", "Examples");
-	ModelContext::SetTransform(animatedEntity2, Math::matrix44::translation(Math::point(5, 0, 5)));
-	ObservableContext::Setup(animatedEntity2, VisibilityEntityType::Model);
-	Characters::CharacterContext::Setup(animatedEntity2, "ske:Units/unit_king.nsk3", "ani:Units/unit_king.nax3", "Examples");
-	Characters::CharacterContext::PlayClip(animatedEntity2, nullptr, 0, 0, Characters::Append, 1.0f, 1, Math::n_rand() * 100.0f, 0.0f, 0.0f, Math::n_rand() * 100.0f);
-	//-----------------------------------------------------------------
+
+ //   Graphics::GraphicsEntityId exampleEntity = Graphics::CreateEntity();
+ //   // Register entity to various graphics contexts.
+ //   // The template parameters are which contexts that the entity should be registered to.
+ //   // ModelContext takes care of loading models and also handles transforms for instances of models.
+ //   // Registering an entity to the ObservableContext will allow cameras to observe the entity (adds the entity to visibility culling system)
+ //   Graphics::RegisterEntity<ModelContext, ObservableContext>(exampleEntity);
+ //   // Setup the entitys model instance
+ //   ModelContext::Setup(exampleEntity, "mdl:system/placeholder.n3", "Examples");
+ //   // Set the transform of the entity
+ //   ModelContext::SetTransform(exampleEntity, Math::matrix44::translation(Math::point(0, 0, 0)));
+ //   // Setup the observable as a model
+ //   ObservableContext::Setup(exampleEntity, VisibilityEntityType::Model);
 
 
-    // Example animated entity
-    Graphics::GraphicsEntityId animatedEntity = Graphics::CreateEntity();
-    // The CharacterContext holds skinned, animated entites and takes care of playing animations etc.
-    Graphics::RegisterEntity<ModelContext, ObservableContext, Characters::CharacterContext>(animatedEntity);
-    // create model and move it to the front
-    ModelContext::Setup(animatedEntity, "mdl:Units/Unit_Footman.n3", "Examples");
-    ModelContext::SetTransform(animatedEntity, Math::matrix44::translation(Math::point(5, 0, 0)));
-    ObservableContext::Setup(animatedEntity, VisibilityEntityType::Model);
-    // Setup the character context instance.
-    // nsk3 is the skeleton resource, nax3 is the animation resource. nax3 files can contain multiple animation clips
-    Characters::CharacterContext::Setup(animatedEntity, "ske:Units/Unit_Footman.nsk3", "ani:Units/Unit_Footman.nax3", "Examples");
-    Characters::CharacterContext::PlayClip(animatedEntity, nullptr, 0, 0, Characters::Append, 1.0f, 1, Math::n_rand() * 100.0f, 0.0f, 0.0f, Math::n_rand() * 100.0f);
+	////-----------------------------------------------------------------
+	////model test
+	//Graphics::GraphicsEntityId gussimEntity = Graphics::CreateEntity();
+	//Graphics::RegisterEntity<ModelContext, ObservableContext>(gussimEntity);
+	//ModelContext::SetTransform(gussimEntity, Math::matrix44::translation(Math::point(5, 5, -5)));
+	//ModelContext::Setup(gussimEntity, "mdl:attachments/Catapult_Spikes.n3", "Examples");
+	//ObservableContext::Setup(gussimEntity, VisibilityEntityType::Model);
+
+	//Graphics::GraphicsEntityId environmentEntity = Graphics::CreateEntity();
+	//Graphics::RegisterEntity<ModelContext, ObservableContext>(environmentEntity);
+	//ModelContext::Setup(environmentEntity, "mdl:environment/Mountains_01.n3", "Examples");
+	//ModelContext::SetTransform(environmentEntity, Math::matrix44::translation(Math::point(50, 0, 0)));
+	//ObservableContext::Setup(environmentEntity, VisibilityEntityType::Model);
+
+	//Graphics::GraphicsEntityId environmentEntity2 = Graphics::CreateEntity();
+	//Graphics::RegisterEntity<ModelContext, ObservableContext>(environmentEntity2);
+	//ModelContext::Setup(environmentEntity2, "mdl:environment/Groundplane.n3", "Examples");
+	//ModelContext::SetTransform(environmentEntity2, Math::matrix44::translation(Math::point(5, 0, 5)));
+	//Math::matrix44 transform = Math::matrix44::translation(Math::point(5, 0, 5)) * Math::matrix44::rotationx(45);
+	//ModelContext::SetTransform(environmentEntity2, transform);
+	//ObservableContext::Setup(environmentEntity2, VisibilityEntityType::Model);
+
+
+	////animated model test
+	//Graphics::GraphicsEntityId animatedEntity2 = Graphics::CreateEntity();
+	//Graphics::RegisterEntity<ModelContext, ObservableContext, Characters::CharacterContext>(animatedEntity2);
+	//ModelContext::Setup(animatedEntity2, "mdl:Units/unit_king.n3", "Examples");
+	//ModelContext::SetTransform(animatedEntity2, Math::matrix44::translation(Math::point(5, 0, 5)));
+	//ObservableContext::Setup(animatedEntity2, VisibilityEntityType::Model);
+	//Characters::CharacterContext::Setup(animatedEntity2, "ske:Units/unit_king.nsk3", "ani:Units/unit_king.nax3", "Examples");
+	//Characters::CharacterContext::PlayClip(animatedEntity2, nullptr, 0, 0, Characters::Append, 1.0f, 1, Math::n_rand() * 100.0f, 0.0f, 0.0f, Math::n_rand() * 100.0f);
+	////-----------------------------------------------------------------
+
+
+ //   // Example animated entity
+ //   Graphics::GraphicsEntityId animatedEntity = Graphics::CreateEntity();
+ //   // The CharacterContext holds skinned, animated entites and takes care of playing animations etc.
+ //   Graphics::RegisterEntity<ModelContext, ObservableContext, Characters::CharacterContext>(animatedEntity);
+ //   // create model and move it to the front
+ //   ModelContext::Setup(animatedEntity, "mdl:Units/Unit_Footman.n3", "Examples");
+ //   ModelContext::SetTransform(animatedEntity, Math::matrix44::translation(Math::point(5, 0, 0)));
+ //   ObservableContext::Setup(animatedEntity, VisibilityEntityType::Model);
+ //   // Setup the character context instance.
+ //   // nsk3 is the skeleton resource, nax3 is the animation resource. nax3 files can contain multiple animation clips
+ //   Characters::CharacterContext::Setup(animatedEntity, "ske:Units/Unit_Footman.nsk3", "ani:Units/Unit_Footman.nax3", "Examples");
+ //   Characters::CharacterContext::PlayClip(animatedEntity, nullptr, 0, 0, Characters::Append, 1.0f, 1, Math::n_rand() * 100.0f, 0.0f, 0.0f, Math::n_rand() * 100.0f);
+ //   float newZ = 5;
+
+
+
+
+
+
+
+
 
     // Create a point light entity
     Graphics::GraphicsEntityId pointLight = Graphics::CreateEntity();
@@ -324,7 +339,9 @@ ExampleApplication::Run()
     Lighting::LightContext::RegisterEntity(pointLight);
     Lighting::LightContext::SetupPointLight(pointLight, Math::float4(4.5, 0, 0.2, 1), 10.0f, Math::matrix44::translation(1, 2, 1), 100.0f, true);
 
-	float newZ = 5;
+
+
+
 
     while (run && !inputServer->IsQuitRequested())
     {   
@@ -360,8 +377,8 @@ ExampleApplication::Run()
 
         // do stuff after rendering is done
         this->gfxServer->EndFrame();
-		ModelContext::SetTransform(animatedEntity2, Math::matrix44::translation(Math::point(5, 0, newZ)));
-		newZ+= 0.01;
+		//ModelContext::SetTransform(animatedEntity2, Math::matrix44::translation(Math::point(5, 0, newZ)));
+		//newZ+= 0.01;
         // force wait immediately
         WindowPresent(wnd, frameIndex);
         if (this->inputServer->GetDefaultKeyboard()->KeyPressed(Input::Key::Escape)) run = false;        

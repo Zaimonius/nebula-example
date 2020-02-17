@@ -1,15 +1,18 @@
-#pragma once
 #include "BaseComponent.h"
 
 namespace ECS
 {
-	__ImplementAbstractClass(ECS::BaseComponent, 'BASC', Core::RefCounted);
+	__ImplementClass(BaseComponent, 'BASC', Core::RefCounted);
+
+	BaseComponent::BaseComponent()
+	{
+
+	}
+
+	BaseComponent::~BaseComponent()
+	{
+
+	}
+
 }
 
-ECS::BaseComponent::BaseComponent()
-{
-}
-
-ECS::BaseComponent::~BaseComponent()
-{
-}

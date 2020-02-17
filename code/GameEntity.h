@@ -5,16 +5,15 @@
 #include "MessageDispatcher.h"
 #include "core/refcounted.h"
 #include "core/rttimacros.h"
+#include "GraphicsComponent.h"
+#include "TransformComponent.h"
+
 
 namespace ECS
 {
-	class BaseComponent;
-	struct Message;
-
-
 	class GameEntity : public Core::RefCounted
 	{
-		__DeclareClass(ECS::GameEntity);
+		__DeclareClass(GameEntity);
 	public:
 		/// <summary>
 		/// empty constructor
@@ -30,7 +29,7 @@ namespace ECS
 		/// </summary>
 		/// <param name="entityID">entity ID</param>
 		/// <param name="components">component list(util array)</param>
-		GameEntity(Util::StringAtom entityID, Util::Array<ECS::BaseComponent*> components);
+		GameEntity(Util::StringAtom entityID, Util::Array<BaseComponent*> components);
 		/// <summary>
 		/// empty destructor
 		/// </summary>
@@ -56,12 +55,12 @@ namespace ECS
 		/// method for adding a component
 		/// </summary>
 		/// <param name="component">pointer to the component you want to add</param>
-		void addComponent(ECS::BaseComponent* component);
+		void addComponent(BaseComponent* component);
 		/// <summary>
 		/// method for removing a component
 		/// </summary>
 		/// <param name="component">pointer to the component you want to remove</param>
-		void removeComponent(ECS::BaseComponent* component);
+		void removeComponent(BaseComponent* component);
 		/// <summary>
 		/// method for getting an ID
 		/// </summary>
@@ -71,7 +70,8 @@ namespace ECS
 		/// method for receiving a message
 		/// </summary>
 		/// <param name="msg">the message received</param>
-		void onMessage(ECS::Message msg);
+		void onMessage(Message msg); 
+		static GameEntity createCharacter(Util::StringAtom modelName, Util::StringAtom tag, Util::StringAtom entityID, Math::point pos);
 	private:
 		Util::StringAtom ID;
 		Util::Array<BaseComponent*> _components;

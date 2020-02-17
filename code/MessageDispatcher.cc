@@ -1,38 +1,52 @@
-#pragma once
 #include "MessageDispatcher.h"
 
 namespace ECS
 {
-	__ImplementClass(ECS::MessageDispatcher, 'MEDP', Core::RefCounted);
-}
+	__ImplementClass(Message, 'MESG', Core::RefCounted);
+	__ImplementClass(MessageDispatcher, 'MEDP', Core::RefCounted);
 
-ECS::MessageDispatcher* ECS::MessageDispatcher::instance = nullptr;
-
-ECS::MessageDispatcher::MessageDispatcher()
-{
-}
-
-ECS::MessageDispatcher::~MessageDispatcher()
-{
-	delete this->instance;
-}
-
-ECS::MessageDispatcher* ECS::MessageDispatcher::getInstance()
-{
-	if (instance == nullptr)
+	Message::Message(Util::StringAtom senderID, Util::StringAtom receiverID, MessageType message, int delay, void* extraInfo)
 	{
-		instance = new ECS::MessageDispatcher();
+		this->senderID = senderID;
+		this->receiverID = receiverID;
+		this->message = message;
+		this->delay = delay;
+		this->extraInfo = extraInfo;
 	}
-	return instance;
-}
 
-void ECS::MessageDispatcher::DispatchMessage(ECS::Message msg)
-{
-	ECS::EntityManager::getInstance()->getEntity(msg.receiverID)->onMessage(msg);
-}
+	Message::Message()
+	{
 
-void ECS::MessageDispatcher::SendMessage(Util::StringAtom senderID, Util::StringAtom receiverID, ECS::MessageType message, int delay, void* extraInfo)
-{
-	DispatchMessage(ECS::Message(senderID, receiverID, message, delay, extraInfo));
-}
+	}
 
+	MessageDispatcher* MessageDispatcher::instance = nullptr;
+
+	MessageDispatcher::MessageDispatcher()
+	{
+	}
+
+	MessageDispatcher::~MessageDispatcher()
+	{
+		delete this->instance;
+	}
+
+	MessageDispatcher* MessageDispatcher::getInstance()
+	{
+		if (instance == nullptr)
+		{
+			instance = new MessageDispatcher();
+		}
+		return instance;
+	}
+
+	void MessageDispatcher::DispatchMessage(Message msg)
+	{
+		EntityManager::getInstance()->getEntity(msg.receiverID)->onMessage(msg);
+	}
+
+	void MessageDispatcher::SendMessage(Util::StringAtom senderID, Util::StringAtom receiverID, MessageType message, int delay, void* extraInfo)
+	{
+		DispatchMessage(Message(senderID, receiverID, message, delay, extraInfo));
+	}
+
+}

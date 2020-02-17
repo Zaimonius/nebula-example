@@ -8,6 +8,8 @@
 #include "core/refcounted.h"
 #include "core/rttimacros.h"
 
+
+
 namespace ECS
 {
 
@@ -16,26 +18,22 @@ namespace ECS
 		MSG_MSG
 	};
 
-	struct Message
+	class Message : public Core::RefCounted
 	{
+		__DeclareClass(Message);
+	public:
 		Util::StringAtom senderID;
 		Util::StringAtom receiverID;
-		ECS::MessageType message;
+		MessageType message;
 		float delay;
 		void* extraInfo;
-		Message(Util::StringAtom senderID, Util::StringAtom receiverID, ECS::MessageType message, int delay, void* extraInfo)
-		{
-			this->senderID = senderID;
-			this->receiverID = receiverID;
-			this->message = message;
-			this->delay = delay;
-			this->extraInfo = extraInfo;
-		}
+		Message(Util::StringAtom senderID, Util::StringAtom receiverID, MessageType message, int delay, void* extraInfo);
+		Message();
 	};
 
 	class MessageDispatcher : public Core::RefCounted
 	{
-		__DeclareClass(ECS::MessageDispatcher);
+		__DeclareClass(MessageDispatcher);
 	public:
 		/// <summary>
 		/// empty constructor
@@ -49,7 +47,7 @@ namespace ECS
 		/// singleton get instance
 		/// </summary>
 		/// <returns>an instance of the message dispatcher</returns>
-		ECS::MessageDispatcher* getInstance();
+		MessageDispatcher* getInstance();
 		/// <summary>
 		/// sends the message to th entity
 		/// </summary>
@@ -63,9 +61,9 @@ namespace ECS
 		/// <param name="message">message type</param>
 		/// <param name="delay">the dealy of the message</param>
 		/// <param name="extraInfo">extra info if you want</param>
-		void SendMessage(Util::StringAtom senderID, Util::StringAtom receiverID, ECS::MessageType message, int delay, void* extraInfo);
+		void SendMessage(Util::StringAtom senderID, Util::StringAtom receiverID, MessageType message, int delay, void* extraInfo);
 	private:
-		static ECS::MessageDispatcher* instance;
+		static MessageDispatcher* instance;
 	};
 
 }
