@@ -8,6 +8,8 @@
 namespace ECS
 {
 	
+
+
 	class BaseComponent : public Core::RefCounted
 	{
 		__DeclareClass(BaseComponent);

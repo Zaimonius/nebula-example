@@ -8,10 +8,11 @@
 
 namespace ECS
 {
+
 	
-	class TransformComponent : public ECS::BaseComponent
+	class TransformComponent : public BaseComponent
 	{
-		__DeclareClass(ECS::TransformComponent);
+		__DeclareClass(TransformComponent);
 	public:
 		TransformComponent();
 		TransformComponent(float x, float y, float z);

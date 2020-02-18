@@ -6,7 +6,6 @@ namespace ECS
 
 	__ImplementClass(ECS::GraphicsComponent, 'GRAC', ECS::BaseComponent);
 
-
 	GraphicsComponent::GraphicsComponent()
 	{
 

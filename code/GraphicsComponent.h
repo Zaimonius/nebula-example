@@ -5,7 +5,6 @@
 #include "models/modelcontext.h"
 #include "visibility/visibilitycontext.h"
 #include "BaseComponent.h"
-#include "MessageDispatcher.h"
 #include "Message.h"
 
 
@@ -13,8 +12,7 @@
 namespace ECS
 {
 
-
-	class GraphicsComponent : public ECS::BaseComponent
+	class GraphicsComponent : public BaseComponent
 	{
 		__DeclareClass(GraphicsComponent);
 	public:
