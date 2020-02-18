@@ -1,3 +1,4 @@
+#include "foundation/stdneb.h"
 #include "EntityManager.h"
 
 namespace ECS
@@ -69,9 +70,9 @@ namespace ECS
 		return this->_entities[key];
 	}
 
-	void EntityManager::createCharacter(Util::StringAtom modelName, Util::StringAtom tag, Util::StringAtom entityID, Math::float4 pos)
+	void EntityManager::createCharacter(Util::StringAtom modelName, Util::StringAtom tag, Util::StringAtom entityID, float x, float y, float z)
 	{
-		GameEntity* newChar = &GameEntity::createCharacter(modelName, tag, entityID, pos);
+		GameEntity* newChar = &GameEntity::createCharacter(modelName, tag, entityID, x,y,z);
 		this->_entities.Add(entityID, newChar);
 	}
 

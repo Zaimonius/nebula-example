@@ -1,20 +1,17 @@
 #pragma once
 #include "util/stringatom.h"
 #include "util/array.h"
-#include "BaseComponent.h"
-#include "core/refcounted.h"
-#include "core/rttimacros.h"
 #include "math/matrix44.h"
 #include "math/float4.h"
-
-
+#include "BaseComponent.h"
+#include "Message.h"
 
 namespace ECS
 {
-
-	class TransformComponent : public BaseComponent
+	
+	class TransformComponent : public ECS::BaseComponent
 	{
-		__DeclareClass(TransformComponent);
+		__DeclareClass(ECS::TransformComponent);
 	public:
 		TransformComponent();
 		TransformComponent(float x, float y, float z);

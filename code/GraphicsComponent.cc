@@ -1,8 +1,10 @@
+#include "foundation/stdneb.h"
 #include "GraphicsComponent.h"
 
 namespace ECS
 {
-	__ImplementClass(GraphicsComponent, 'GRAC', Core::RefCounted);
+
+	__ImplementClass(ECS::GraphicsComponent, 'GRAC', ECS::BaseComponent);
 
 
 	GraphicsComponent::GraphicsComponent()

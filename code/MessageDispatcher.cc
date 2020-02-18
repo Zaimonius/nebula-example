@@ -1,23 +1,11 @@
+#include "foundation/stdneb.h"
 #include "MessageDispatcher.h"
 
 namespace ECS
 {
-	__ImplementClass(Message, 'MESG', Core::RefCounted);
+
 	__ImplementClass(MessageDispatcher, 'MEDP', Core::RefCounted);
-
-	Message::Message(Util::StringAtom senderID, Util::StringAtom receiverID, MessageType message, int delay, void* extraInfo)
-	{
-		this->senderID = senderID;
-		this->receiverID = receiverID;
-		this->message = message;
-		this->delay = delay;
-		this->extraInfo = extraInfo;
-	}
-
-	Message::Message()
-	{
-
-	}
+	
 
 	MessageDispatcher* MessageDispatcher::instance = nullptr;
 
@@ -41,7 +29,7 @@ namespace ECS
 
 	void MessageDispatcher::DispatchMessage(Message msg)
 	{
-		EntityManager::getInstance()->getEntity(msg.receiverID)->onMessage(msg);
+		ECS::EntityManager::getInstance()->getEntity(msg.receiverID)->onMessage(msg);
 	}
 
 	void MessageDispatcher::SendMessage(Util::StringAtom senderID, Util::StringAtom receiverID, MessageType message, int delay, void* extraInfo)

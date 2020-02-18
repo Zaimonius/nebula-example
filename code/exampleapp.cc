@@ -2,7 +2,7 @@
 // exampleapp.cc
 // (C) 2018 Individual contributors, see AUTHORS file
 //------------------------------------------------------------------------------
-#include "stdneb.h"
+#include "foundation/stdneb.h"
 #include "core/refcounted.h"
 #include "timing/timer.h"
 #include "io/console.h"
@@ -259,7 +259,7 @@ ExampleApplication::Run()
 
 
     ECS::EntityManager man;
-    man.createCharacter("mdl:attachments/Catapult_Spikes.n3", "catapult", "catapult", Math::float4(0, 0, 0, 1));
+    man.createCharacter("mdl:attachments/Catapult_Spikes.n3", "catapult", "catapult", 0, 0, 0);
 
 
 

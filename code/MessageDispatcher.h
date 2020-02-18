@@ -1,35 +1,16 @@
 #pragma once
 #include "util/stringatom.h"
 #include "util/array.h"
-#include "BaseComponent.h"
-#include "GameEntity.h"
-#include "EntityManager.h"
 #include <chrono>
 #include "core/refcounted.h"
 #include "core/rttimacros.h"
-
+#include "EntityManager.h"
+#include "Message.h"
 
 
 namespace ECS
 {
-
-	enum MessageType
-	{
-		MSG_MSG
-	};
-
-	class Message : public Core::RefCounted
-	{
-		__DeclareClass(Message);
-	public:
-		Util::StringAtom senderID;
-		Util::StringAtom receiverID;
-		MessageType message;
-		float delay;
-		void* extraInfo;
-		Message(Util::StringAtom senderID, Util::StringAtom receiverID, MessageType message, int delay, void* extraInfo);
-		Message();
-	};
+	
 
 	class MessageDispatcher : public Core::RefCounted
 	{
@@ -62,6 +43,7 @@ namespace ECS
 		/// <param name="delay">the dealy of the message</param>
 		/// <param name="extraInfo">extra info if you want</param>
 		void SendMessage(Util::StringAtom senderID, Util::StringAtom receiverID, MessageType message, int delay, void* extraInfo);
+
 	private:
 		static MessageDispatcher* instance;
 	};

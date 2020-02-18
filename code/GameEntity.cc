@@ -1,3 +1,4 @@
+#include "foundation/stdneb.h"
 #include "GameEntity.h"
 
 
@@ -53,6 +54,7 @@ namespace ECS
 		}
 	}
 
+
 	void GameEntity::setID(Util::StringAtom entityID)
 	{
 		this->ID = entityID;
@@ -83,10 +85,10 @@ namespace ECS
 	{
 	}
 
-	GameEntity GameEntity::createCharacter(Util::StringAtom modelName, Util::StringAtom tag, Util::StringAtom entityID, Math::point pos)
+	GameEntity GameEntity::createCharacter(Util::StringAtom modelName, Util::StringAtom tag, Util::StringAtom entityID, float x, float y, float z)
 	{
 		GameEntity newChar(entityID);
-		TransformComponent transformComp(pos.x, pos.y, pos.z);
+		TransformComponent transformComp(x, y, z);
 		GraphicsComponent graphicsComp(modelName, tag);
 		graphicsComp.move(transformComp.getTransform());
 		return newChar;

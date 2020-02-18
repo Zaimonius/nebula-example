@@ -9,8 +9,11 @@
 #include "TransformComponent.h"
 
 
+
 namespace ECS
 {
+	class BaseComponent;
+
 	class GameEntity : public Core::RefCounted
 	{
 		__DeclareClass(GameEntity);
@@ -71,7 +74,7 @@ namespace ECS
 		/// </summary>
 		/// <param name="msg">the message received</param>
 		void onMessage(Message msg); 
-		static GameEntity createCharacter(Util::StringAtom modelName, Util::StringAtom tag, Util::StringAtom entityID, Math::point pos);
+		static GameEntity createCharacter(Util::StringAtom modelName, Util::StringAtom tag, Util::StringAtom entityID, float x, float y, float z);
 	private:
 		Util::StringAtom ID;
 		Util::Array<BaseComponent*> _components;

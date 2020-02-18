@@ -28,6 +28,8 @@ nebula_begin_app(nebula-example windowed)
 			GraphicsComponent.cc
 			MessageDispatcher.h
 			MessageDispatcher.cc
+			Message.h
+			Message.cc
         )
 
 

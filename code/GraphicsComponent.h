@@ -1,17 +1,20 @@
 #pragma once
 #include "util/stringatom.h"
 #include "util/array.h"
-#include "BaseComponent.h"
-#include "MessageDispatcher.h"
 #include "graphics/graphicscontext.h"
 #include "models/modelcontext.h"
 #include "visibility/visibilitycontext.h"
-#include "core/refcounted.h"
-#include "core/rttimacros.h"
+#include "BaseComponent.h"
+#include "MessageDispatcher.h"
+#include "Message.h"
+
+
 
 namespace ECS
 {
-	class GraphicsComponent : public BaseComponent
+
+
+	class GraphicsComponent : public ECS::BaseComponent
 	{
 		__DeclareClass(GraphicsComponent);
 	public:

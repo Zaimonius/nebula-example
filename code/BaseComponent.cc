@@ -1,8 +1,10 @@
+#include "foundation/stdneb.h"
 #include "BaseComponent.h"
 
 namespace ECS
 {
-	__ImplementClass(BaseComponent, 'BASC', Core::RefCounted);
+	__ImplementClass(ECS::BaseComponent, 'BASC', Core::RefCounted);
+
 
 	BaseComponent::BaseComponent()
 	{

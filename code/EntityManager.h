@@ -7,8 +7,14 @@
 #include "core/rttimacros.h"
 
 
+
 namespace ECS
 {
+
+	class BaseComponent;
+	class GameEntity;
+
+
 	class EntityManager : public Core::RefCounted
 	{
 		__DeclareClass(EntityManager);
@@ -50,7 +56,7 @@ namespace ECS
 		/// <param name="key">the entityID you wish to get</param>
 		/// <returns>an entity</returns>
 		GameEntity* getEntity(Util::StringAtom key);
-		void createCharacter(Util::StringAtom modelName, Util::StringAtom tag, Util::StringAtom entityID, Math::float4 pos);
+		void createCharacter(Util::StringAtom modelName, Util::StringAtom tag, Util::StringAtom entityID, float x, float y, float z);
 	private:
 		Util::HashTable<Util::StringAtom, GameEntity*> _entities;
 		static EntityManager* instance;

@@ -2,12 +2,12 @@
 #include "MessageDispatcher.h"
 #include "core/refcounted.h"
 #include "core/rttimacros.h"
-
+#include "Message.h"
 
 
 namespace ECS
 {
-
+	
 	class BaseComponent : public Core::RefCounted
 	{
 		__DeclareClass(BaseComponent);

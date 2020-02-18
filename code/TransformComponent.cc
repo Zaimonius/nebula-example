@@ -1,9 +1,11 @@
+#include "foundation/stdneb.h"
 #include "TransformComponent.h"
 
 namespace ECS
 {
 
-	__ImplementClass(TransformComponent, 'TRFC', Core::RefCounted);
+	__ImplementClass(ECS::TransformComponent, 'TRFC', ECS::BaseComponent);
+
 
 	TransformComponent::TransformComponent()
 	{
