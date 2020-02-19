@@ -11,11 +11,11 @@ namespace ECS
 
 	}
 
-	GraphicsComponent::GraphicsComponent(Util::StringAtom modelName, Util::StringAtom tag)
+	GraphicsComponent::GraphicsComponent(Util::StringAtom modelName, Util::StringAtom tag,Math::matrix44 transform)
 	{
 		this->graphicsEntity = Graphics::CreateEntity();
 		Graphics::RegisterEntity<Models::ModelContext, Visibility::ObservableContext>(this->graphicsEntity);
-		Models::ModelContext::SetTransform(this->graphicsEntity, Math::matrix44::translation(Math::point(0, 0, 0)));
+		Models::ModelContext::SetTransform(this->graphicsEntity, transform);
 		Models::ModelContext::Setup(this->graphicsEntity, modelName, tag);
 		Visibility::ObservableContext::Setup(this->graphicsEntity, Visibility::VisibilityEntityType::Model);
 	}
@@ -53,6 +53,15 @@ namespace ECS
 	void GraphicsComponent::recieveMessage(Message msg)
 	{
 
+	}
+
+	void GraphicsComponent::registerObservable(Util::StringAtom modelName, Util::StringAtom tag, Math::matrix44 transform)
+	{
+		this->graphicsEntity = Graphics::CreateEntity();
+		Graphics::RegisterEntity<Models::ModelContext, Visibility::ObservableContext>(this->graphicsEntity);
+		Models::ModelContext::SetTransform(this->graphicsEntity, transform);
+		Models::ModelContext::Setup(this->graphicsEntity, modelName, tag);
+		Visibility::ObservableContext::Setup(this->graphicsEntity, Visibility::VisibilityEntityType::Model);
 	}
 
 	Util::HashTable<Util::StringAtom, void*> GraphicsComponent::getVars()

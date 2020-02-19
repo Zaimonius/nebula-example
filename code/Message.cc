@@ -4,8 +4,6 @@
 namespace ECS
 {
 
-	__ImplementClass(Message, 'MESS', Core::RefCounted);
-
 	Message::Message(Util::StringAtom senderID, Util::StringAtom receiverID, MessageType message, int delay, void* extraInfo)
 	{
 		this->senderID = senderID;
@@ -17,6 +15,5 @@ namespace ECS
 
 	Message::Message()
 	{
-
 	}
 }

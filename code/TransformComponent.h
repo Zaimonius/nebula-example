@@ -1,14 +1,13 @@
 #pragma once
+#include "BaseComponent.h"
 #include "util/stringatom.h"
 #include "util/array.h"
 #include "math/matrix44.h"
 #include "math/float4.h"
-#include "BaseComponent.h"
 #include "Message.h"
 
 namespace ECS
 {
-
 	
 	class TransformComponent : public BaseComponent
 	{

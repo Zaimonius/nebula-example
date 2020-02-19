@@ -9,14 +9,13 @@
 
 namespace ECS
 {
-	enum MessageType
+	enum class MessageType
 	{
 		MSG_MSG
 	};
 
 	class Message : public Core::RefCounted
 	{
-		__DeclareClass(Message);
 	public:
 		Util::StringAtom senderID;
 		Util::StringAtom receiverID;

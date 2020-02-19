@@ -9,7 +9,7 @@ namespace ECS
 
 	TransformComponent::TransformComponent()
 	{
-
+		this->transform.set_position(Math::point(0, 0, 0));
 	}
 
 	TransformComponent::TransformComponent(float x, float y, float z)

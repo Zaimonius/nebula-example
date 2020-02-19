@@ -3,33 +3,22 @@
 
 namespace ECS
 {
+	__ImplementSingleton(MessageDispatcher);
 
-	__ImplementClass(MessageDispatcher, 'MEDP', Core::RefCounted);
-	
-
-	MessageDispatcher* MessageDispatcher::instance = nullptr;
 
 	MessageDispatcher::MessageDispatcher()
 	{
+		__ConstructSingleton;
 	}
 
 	MessageDispatcher::~MessageDispatcher()
 	{
-		delete this->instance;
-	}
-
-	MessageDispatcher* MessageDispatcher::getInstance()
-	{
-		if (instance == nullptr)
-		{
-			instance = new MessageDispatcher();
-		}
-		return instance;
+		__DestructSingleton;
 	}
 
 	void MessageDispatcher::DispatchMessage(Message msg)
 	{
-		ECS::EntityManager::getInstance()->getEntity(msg.receiverID)->onMessage(msg);
+		ECS::EntityManager::Instance()->getEntity(msg.receiverID)->onMessage(msg);
 	}
 
 	void MessageDispatcher::SendMessage(Util::StringAtom senderID, Util::StringAtom receiverID, MessageType message, int delay, void* extraInfo)

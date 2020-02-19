@@ -3,18 +3,10 @@
 
 namespace ECS
 {
-	__ImplementClass(ECS::BaseComponent, 'BASC', Core::RefCounted);
 
+	__ImplementAbstractClass(ECS::BaseComponent, 'BASC', Core::RefCounted);
 
-	BaseComponent::BaseComponent()
-	{
-
-	}
-
-	BaseComponent::~BaseComponent()
-	{
-
-	}
+	
 
 }
 

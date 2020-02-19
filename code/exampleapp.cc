@@ -261,8 +261,6 @@ ExampleApplication::Run()
     ECS::EntityManager man;
     man.createCharacter("mdl:attachments/Catapult_Spikes.n3", "catapult", "catapult", 0, 0, 0);
 
-
-
  //   Graphics::GraphicsEntityId exampleEntity = Graphics::CreateEntity();
  //   // Register entity to various graphics contexts.
  //   // The template parameters are which contexts that the entity should be registered to.
@@ -275,7 +273,6 @@ ExampleApplication::Run()
  //   ModelContext::SetTransform(exampleEntity, Math::matrix44::translation(Math::point(0, 0, 0)));
  //   // Setup the observable as a model
  //   ObservableContext::Setup(exampleEntity, VisibilityEntityType::Model);
-
 
 	////-----------------------------------------------------------------
 	////model test
@@ -299,7 +296,6 @@ ExampleApplication::Run()
 	//ModelContext::SetTransform(environmentEntity2, transform);
 	//ObservableContext::Setup(environmentEntity2, VisibilityEntityType::Model);
 
-
 	////animated model test
 	//Graphics::GraphicsEntityId animatedEntity2 = Graphics::CreateEntity();
 	//Graphics::RegisterEntity<ModelContext, ObservableContext, Characters::CharacterContext>(animatedEntity2);
@@ -309,7 +305,6 @@ ExampleApplication::Run()
 	//Characters::CharacterContext::Setup(animatedEntity2, "ske:Units/unit_king.nsk3", "ani:Units/unit_king.nax3", "Examples");
 	//Characters::CharacterContext::PlayClip(animatedEntity2, nullptr, 0, 0, Characters::Append, 1.0f, 1, Math::n_rand() * 100.0f, 0.0f, 0.0f, Math::n_rand() * 100.0f);
 	////-----------------------------------------------------------------
-
 
  //   // Example animated entity
  //   Graphics::GraphicsEntityId animatedEntity = Graphics::CreateEntity();

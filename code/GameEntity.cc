@@ -4,11 +4,12 @@
 
 namespace ECS
 {
-	__ImplementClass(GameEntity, 'GMEN', Core::RefCounted);
+	__ImplementClass(ECS::GameEntity, 'GMEN', Core::RefCounted);
 
 
 	GameEntity::GameEntity()
 	{
+
 	}
 
 	GameEntity::GameEntity(Util::StringAtom entityID)
@@ -18,6 +19,7 @@ namespace ECS
 
 	GameEntity::GameEntity(Util::StringAtom entityID, Util::Array<BaseComponent*> components)
 	{
+		GameEntity::Create();
 		this->ID = entityID;
 		for (int i = 0; i < components.size(); i++)
 		{
@@ -89,9 +91,21 @@ namespace ECS
 	{
 		GameEntity newChar(entityID);
 		TransformComponent transformComp(x, y, z);
-		GraphicsComponent graphicsComp(modelName, tag);
-		graphicsComp.move(transformComp.getTransform());
+		GraphicsComponent graphicsComp(modelName, tag, transformComp.getTransform());
 		return newChar;
+	}
+
+	void GameEntity::makeCharacter(Util::StringAtom modelName, Util::StringAtom tag, Util::StringAtom entityID, float x, float y, float z)
+	{
+		setID(entityID);
+		Ptr<TransformComponent> transform = TransformComponent::Create();
+		transform->move(x, y, z);
+		Ptr<GraphicsComponent> graphics = GraphicsComponent::Create();
+		graphics->registerObservable(modelName, tag, transform->getTransform());
+		graphics->move(transform->getTransform());
+		addComponent(transform);
+		addComponent(graphics);
+
 	}
 
 }

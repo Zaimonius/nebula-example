@@ -14,7 +14,7 @@ namespace ECS
 
 	class MessageDispatcher : public Core::RefCounted
 	{
-		__DeclareClass(MessageDispatcher);
+		__DeclareSingleton(MessageDispatcher);
 	public:
 		/// <summary>
 		/// empty constructor
@@ -24,11 +24,6 @@ namespace ECS
 		/// deletes the instance
 		/// </summary>
 		~MessageDispatcher();
-		/// <summary>
-		/// singleton get instance
-		/// </summary>
-		/// <returns>an instance of the message dispatcher</returns>
-		MessageDispatcher* getInstance();
 		/// <summary>
 		/// sends the message to th entity
 		/// </summary>
@@ -43,9 +38,7 @@ namespace ECS
 		/// <param name="delay">the dealy of the message</param>
 		/// <param name="extraInfo">extra info if you want</param>
 		void SendMessage(Util::StringAtom senderID, Util::StringAtom receiverID, MessageType message, int delay, void* extraInfo);
-
 	private:
-		static MessageDispatcher* instance;
 	};
 
 }

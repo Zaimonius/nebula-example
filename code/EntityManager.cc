@@ -3,19 +3,19 @@
 
 namespace ECS
 {
-	__ImplementClass(EntityManager, 'ENTM', Core::RefCounted);
+	__ImplementSingleton(EntityManager);
 
 
 	EntityManager::EntityManager()
 	{
+		__ConstructSingleton;
 	}
 
-	EntityManager* EntityManager::instance = nullptr;
 
 
 	EntityManager::~EntityManager()
 	{
-		delete this->instance;
+		__DestructSingleton;
 	}
 
 	void EntityManager::update()
@@ -49,19 +49,14 @@ namespace ECS
 		this->_entities.Clear();
 	}
 
-	EntityManager* EntityManager::getInstance()
+	void EntityManager::createEntity(Util::StringAtom entityID, Util::Array<BaseComponent*> components)
 	{
-		if (instance == nullptr)
+		Ptr<GameEntity> newEntity = GameEntity::Create();
+		newEntity->setID(entityID);
+		for (int i = 0; i < components.Size(); i++)
 		{
-			instance = new EntityManager();
+			newEntity->addComponent(components[i]);
 		}
-		return instance;
-	}
-
-	void EntityManager::createEntity(Util::StringAtom entityID, Util::Array<BaseComponent> components)
-	{
-		GameEntity* newEntity = new GameEntity(entityID);
-
 		this->_entities.Add(entityID, newEntity);
 	}
 
@@ -72,7 +67,8 @@ namespace ECS
 
 	void EntityManager::createCharacter(Util::StringAtom modelName, Util::StringAtom tag, Util::StringAtom entityID, float x, float y, float z)
 	{
-		GameEntity* newChar = &GameEntity::createCharacter(modelName, tag, entityID, x,y,z);
+		Ptr<GameEntity> newChar = GameEntity::Create();
+		newChar->makeCharacter(modelName, tag, entityID, x, y, z);
 		this->_entities.Add(entityID, newChar);
 	}
 

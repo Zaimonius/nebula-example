@@ -1,5 +1,4 @@
 #pragma once
-#include "MessageDispatcher.h"
 #include "core/refcounted.h"
 #include "core/rttimacros.h"
 #include "Message.h"
@@ -8,34 +7,24 @@
 namespace ECS
 {
 	
-
-
 	class BaseComponent : public Core::RefCounted
 	{
-		__DeclareClass(BaseComponent);
+		__DeclareAbstractClass(BaseComponent);
 	public:
 		/// <summary>
-		/// empty constructor
+		/// virtual void init method for all components
 		/// </summary>
-		BaseComponent();
-		/// <summary>
-		/// empty constructor
-		/// </summary>
-		~BaseComponent();
+		virtual void init() = 0;
 		/// <summary>
 		/// virtual void init method for all components
 		/// </summary>
-		virtual void init() {};
+		virtual void update() = 0;
 		/// <summary>
 		/// virtual void init method for all components
 		/// </summary>
-		virtual void update() {};
-		/// <summary>
-		/// virtual void init method for all components
-		/// </summary>
-		virtual void shutdown() {};
-		virtual void recieveMessage(Message msg) {};
-		virtual Util::HashTable<Util::StringAtom, void*> getVars() {};
+		virtual void shutdown() = 0;
+		virtual void recieveMessage(Message msg) = 0;
+		virtual Util::HashTable<Util::StringAtom, void*> getVars() = 0;
 	private:
 	};
 
