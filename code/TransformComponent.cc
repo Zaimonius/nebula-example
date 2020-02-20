@@ -77,4 +77,12 @@ namespace ECS
 		return this->transform;
 	}
 
+	Util::KeyValuePair<Util::StringAtom, void*> TransformComponent::getVar()
+	{
+		Math::matrix44* transformPointer = &this->transform;
+		Util::KeyValuePair<Util::StringAtom, void*> var("transform", transformPointer);
+		return var;
+	}
+
+
 }

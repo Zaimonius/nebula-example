@@ -28,12 +28,6 @@ namespace ECS
 		/// <param name="entityID">id for the entity as a string</param>
 		GameEntity(Util::StringAtom entityID);
 		/// <summary>
-		/// constructor for both a component list and an id
-		/// </summary>
-		/// <param name="entityID">entity ID</param>
-		/// <param name="components">component list(util array)</param>
-		GameEntity(Util::StringAtom entityID, Util::Array<BaseComponent*> components);
-		/// <summary>
 		/// empty destructor
 		/// </summary>
 		~GameEntity();
@@ -58,12 +52,12 @@ namespace ECS
 		/// method for adding a component
 		/// </summary>
 		/// <param name="component">pointer to the component you want to add</param>
-		void addComponent(BaseComponent* component);
+		void addComponent(Util::StringAtom compName,Ptr<BaseComponent> component);
 		/// <summary>
 		/// method for removing a component
 		/// </summary>
 		/// <param name="component">pointer to the component you want to remove</param>
-		void removeComponent(BaseComponent* component);
+		void removeComponent(Util::StringAtom compName);
 		/// <summary>
 		/// method for getting an ID
 		/// </summary>
@@ -74,12 +68,14 @@ namespace ECS
 		/// </summary>
 		/// <param name="msg">the message received</param>
 		void onMessage(Message msg); 
-		static GameEntity createCharacter(Util::StringAtom modelName, Util::StringAtom tag, Util::StringAtom entityID, float x, float y, float z);
 		void makeCharacter(Util::StringAtom modelName, Util::StringAtom tag, Util::StringAtom entityID, float x, float y, float z);
+		void addVar(Util::KeyValuePair<Util::StringAtom, void*> var);
+		void* getVar(Util::StringAtom varName);
+		void removeVar(Util::StringAtom varName);
 	private:
 		Util::StringAtom ID;
-		Util::Array<BaseComponent*> _components;
-		Util::HashTable<Util::StringAtom, Util::Array<void*>> componentVars;
+		Util::HashTable<Util::StringAtom, Ptr<BaseComponent>> _components;
+		Util::HashTable<Util::StringAtom, void*> componentVars;
 	};
 
 }

@@ -209,6 +209,9 @@ ExampleApplication::Open()
 void 
 ExampleApplication::Close()
 {
+    ECS::EntityManager man;
+    man.shutdown();
+
 	App::Application::Close();
     DestroyWindow(this->wnd);
     this->gfxServer->DiscardStage(this->stage);
@@ -260,6 +263,13 @@ ExampleApplication::Run()
 
     ECS::EntityManager man;
     man.createCharacter("mdl:attachments/Catapult_Spikes.n3", "catapult", "catapult", 0, 0, 0);
+    man.createCharacter("mdl:attachments/Catapult_Spikes.n3", "catapult2", "catapult2", 3, 0, 0);
+    man.createCharacter("mdl:attachments/Catapult_Spikes.n3", "catapult3", "catapult3", -3, 0, 0);
+    man.createCharacter("mdl:system/placeholder.n3", "placeholder", "placeholder", 0, 0, 0);
+    man.createCharacter("mdl:environment/Mountains_01.n3", "mounatin", "mountain", 50, 0, 0);
+    man.createCharacter("mdl:environment/Groundplane.n3", "ground", "ground", 0, 0, 0);
+
+    
 
  //   Graphics::GraphicsEntityId exampleEntity = Graphics::CreateEntity();
  //   // Register entity to various graphics contexts.
@@ -336,7 +346,7 @@ ExampleApplication::Run()
 
 
 
-
+    man.init();
 
     while (run && !inputServer->IsQuitRequested())
     {   
@@ -372,8 +382,9 @@ ExampleApplication::Run()
 
         // do stuff after rendering is done
         this->gfxServer->EndFrame();
-		//ModelContext::SetTransform(animatedEntity2, Math::matrix44::translation(Math::point(5, 0, newZ)));
-		//newZ+= 0.01;
+		
+        man.update();
+
         // force wait immediately
         WindowPresent(wnd, frameIndex);
         if (this->inputServer->GetDefaultKeyboard()->KeyPressed(Input::Key::Escape)) run = false;        
@@ -403,6 +414,8 @@ ExampleApplication::Run()
         frameIndex++;             
         this->inputServer->EndFrame();
     }
+
+
 }
 
 //------------------------------------------------------------------------------

@@ -20,7 +20,7 @@ namespace ECS
 
 	void EntityManager::update()
 	{
-		Util::HashTable< Util::StringAtom, GameEntity*>::Iterator iterator = this->_entities.Begin();
+		Util::HashTable< Util::StringAtom, Ptr<GameEntity>>::Iterator iterator = this->_entities.Begin();
 		for (int i = 0; i < this->_entities.Size(); i++)
 		{
 			(*iterator.val)->update();
@@ -30,7 +30,7 @@ namespace ECS
 
 	void EntityManager::init()
 	{
-		Util::HashTable< Util::StringAtom, GameEntity*>::Iterator iterator = this->_entities.Begin();
+		Util::HashTable< Util::StringAtom, Ptr<GameEntity>>::Iterator iterator = this->_entities.Begin();
 		for (int i = 0; i < this->_entities.Size(); i++)
 		{
 			(*iterator.val)->init();
@@ -40,7 +40,7 @@ namespace ECS
 
 	void EntityManager::shutdown()
 	{
-		Util::HashTable< Util::StringAtom, GameEntity*>::Iterator iterator = this->_entities.Begin();
+		Util::HashTable< Util::StringAtom, Ptr<GameEntity>>::Iterator iterator = this->_entities.Begin();
 		for (int i = 0; i < this->_entities.Size(); i++)
 		{
 			(*iterator.val)->shutdown();
@@ -49,13 +49,13 @@ namespace ECS
 		this->_entities.Clear();
 	}
 
-	void EntityManager::createEntity(Util::StringAtom entityID, Util::Array<BaseComponent*> components)
+	void EntityManager::createEntity(Util::StringAtom entityID, Util::Array<Ptr<BaseComponent>> components)
 	{
 		Ptr<GameEntity> newEntity = GameEntity::Create();
 		newEntity->setID(entityID);
 		for (int i = 0; i < components.Size(); i++)
 		{
-			newEntity->addComponent(components[i]);
+			newEntity->addComponent(entityID,components[i]);
 		}
 		this->_entities.Add(entityID, newEntity);
 	}

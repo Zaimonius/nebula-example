@@ -17,15 +17,6 @@ namespace ECS
 		this->ID = entityID;
 	}
 
-	GameEntity::GameEntity(Util::StringAtom entityID, Util::Array<BaseComponent*> components)
-	{
-		GameEntity::Create();
-		this->ID = entityID;
-		for (int i = 0; i < components.size(); i++)
-		{
-			this->_components.Append(components[i]);
-		}
-	}
 
 	GameEntity::~GameEntity()
 	{
@@ -33,27 +24,34 @@ namespace ECS
 
 	void GameEntity::update()
 	{
-		for (int i = 0; i < this->_components.size(); i++)
+		Util::HashTable< Util::StringAtom, Ptr<BaseComponent>>::Iterator iterator = this->_components.Begin();
+		for (int i = 0; i < this->_components.Size(); i++)
 		{
-			this->_components[i]->update();
+			(*iterator.val)->update();
+			iterator++;
 		}
 	}
 
 	void GameEntity::init()
 	{
-		for (int i = 0; i < this->_components.size(); i++)
+		Util::HashTable< Util::StringAtom, Ptr<BaseComponent>>::Iterator iterator = this->_components.Begin();
+		for (int i = 0; i < this->_components.Size(); i++)
 		{
-			this->_components[i]->init();
+			(*iterator.val)->init();
+			iterator++;
 		}
 	}
 
 	void GameEntity::shutdown()
 	{
-		for (int i = 0; i < this->_components.size(); i++)
+		Util::HashTable< Util::StringAtom, Ptr<BaseComponent>>::Iterator iterator = this->_components.Begin();
+		for (int i = 0; i < this->_components.Size(); i++)
 		{
-			this->_components[i]->shutdown();
-			delete this->_components[i];
+			(*iterator.val)->shutdown();
+			iterator++;
 		}
+		this->_components.Clear();
+		this->componentVars.Clear();
 	}
 
 
@@ -62,20 +60,16 @@ namespace ECS
 		this->ID = entityID;
 	}
 
-	void GameEntity::addComponent(BaseComponent* component)
+	void GameEntity::addComponent(Util::StringAtom compName, Ptr<BaseComponent> component)
 	{
-		this->_components.Append(component);
+		this->_components.Add(compName, component);
+		this->addVar(component->getVar());
 	}
 
-	void GameEntity::removeComponent(BaseComponent* component)
+	void GameEntity::removeComponent(Util::StringAtom compName)
 	{
-		for (int i = 0; i < this->_components.size(); i++)
-		{
-			if (this->_components[i] == component)
-			{
-				this->_components.EraseIndex(i);
-			}
-		}
+
+		this->_components.Erase(compName);
 	}
 
 	Util::StringAtom GameEntity::getID()
@@ -85,27 +79,37 @@ namespace ECS
 
 	void GameEntity::onMessage(Message msg)
 	{
+
 	}
 
-	GameEntity GameEntity::createCharacter(Util::StringAtom modelName, Util::StringAtom tag, Util::StringAtom entityID, float x, float y, float z)
-	{
-		GameEntity newChar(entityID);
-		TransformComponent transformComp(x, y, z);
-		GraphicsComponent graphicsComp(modelName, tag, transformComp.getTransform());
-		return newChar;
-	}
 
 	void GameEntity::makeCharacter(Util::StringAtom modelName, Util::StringAtom tag, Util::StringAtom entityID, float x, float y, float z)
 	{
-		setID(entityID);
+		this->setID(entityID);
 		Ptr<TransformComponent> transform = TransformComponent::Create();
 		transform->move(x, y, z);
 		Ptr<GraphicsComponent> graphics = GraphicsComponent::Create();
 		graphics->registerObservable(modelName, tag, transform->getTransform());
 		graphics->move(transform->getTransform());
-		addComponent(transform);
-		addComponent(graphics);
+		this->addComponent("transform",transform);
+		this->addComponent("graphics",graphics);
+		this->addVar(transform->getVar());
+		this->addVar(graphics->getVar());
+	}
 
+	void GameEntity::addVar(Util::KeyValuePair<Util::StringAtom, void*> var)
+	{
+		this->componentVars.Add(var);
+	}
+
+	void* GameEntity::getVar(Util::StringAtom varName)
+	{
+		return this->componentVars[varName];
+	}
+
+	void GameEntity::removeVar(Util::StringAtom varName)
+	{
+		this->componentVars.Erase(varName);
 	}
 
 }

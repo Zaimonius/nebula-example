@@ -26,6 +26,7 @@ namespace ECS
 		void rotateY(float angle);
 		void rotateZ(float angle);
 		Math::matrix44 getTransform();
+		Util::KeyValuePair<Util::StringAtom,void*> getVar();
 	private:
 		Math::matrix44 transform;
 	};

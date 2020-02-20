@@ -64,12 +64,11 @@ namespace ECS
 		Visibility::ObservableContext::Setup(this->graphicsEntity, Visibility::VisibilityEntityType::Model);
 	}
 
-	Util::HashTable<Util::StringAtom, void*> GraphicsComponent::getVars()
+	Util::KeyValuePair<Util::StringAtom, void*> GraphicsComponent::getVar()
 	{
-		Util::HashTable<Util::StringAtom, void*> varTable;
 		Graphics::GraphicsEntityId* graphicsPointer = &this->graphicsEntity;
-		varTable["graphicsEntity"] = graphicsPointer;
-		return varTable;
+		Util::KeyValuePair<Util::StringAtom, void*> var("graphics", graphicsPointer);
+		return var;
 	}
 
 }

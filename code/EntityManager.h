@@ -43,7 +43,7 @@ namespace ECS
 		/// </summary>
 		/// <param name="entityID">id of the entity</param>
 		/// <param name="components">the component you want the entity to have</param>
-		void createEntity(Util::StringAtom entityID, Util::Array<BaseComponent*> components);
+		void createEntity(Util::StringAtom entityID, Util::Array<Ptr<BaseComponent>> components);
 		/// <summary>
 		/// method for getting an entity from the hashtable
 		/// </summary>
@@ -52,7 +52,7 @@ namespace ECS
 		GameEntity* getEntity(Util::StringAtom key);
 		void createCharacter(Util::StringAtom modelName, Util::StringAtom tag, Util::StringAtom entityID, float x, float y, float z);
 	private:
-		Util::HashTable<Util::StringAtom, GameEntity*> _entities;
+		Util::HashTable<Util::StringAtom, Ptr<GameEntity>> _entities;
 	};
 
 }

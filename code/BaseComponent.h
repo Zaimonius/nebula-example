@@ -24,7 +24,7 @@ namespace ECS
 		/// </summary>
 		virtual void shutdown() = 0;
 		virtual void recieveMessage(Message msg) = 0;
-		virtual Util::HashTable<Util::StringAtom, void*> getVars() = 0;
+		virtual Util::KeyValuePair<Util::StringAtom, void*> getVar() = 0;
 	private:
 	};
 
