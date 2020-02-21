@@ -20,13 +20,12 @@ namespace ECS
 		void init();
 		void shutdown();
 		void recieveMessage(Message msg);
-		Util::HashTable<Util::StringAtom, void*> getVars();
 		void move(float x, float y, float z);
 		void rotateX(float angle);
 		void rotateY(float angle);
 		void rotateZ(float angle);
 		Math::matrix44 getTransform();
-		Util::KeyValuePair<Util::StringAtom,void*> getVar();
+		Util::Array<Util::KeyValuePair<Util::StringAtom, void*>> getVars();
 	private:
 		Math::matrix44 transform;
 	};

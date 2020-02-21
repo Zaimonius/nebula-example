@@ -64,11 +64,11 @@ namespace ECS
 		Visibility::ObservableContext::Setup(this->graphicsEntity, Visibility::VisibilityEntityType::Model);
 	}
 
-	Util::KeyValuePair<Util::StringAtom, void*> GraphicsComponent::getVar()
+	Util::Array<Util::KeyValuePair<Util::StringAtom, void*>> GraphicsComponent::getVars()
 	{
-		Graphics::GraphicsEntityId* graphicsPointer = &this->graphicsEntity;
-		Util::KeyValuePair<Util::StringAtom, void*> var("graphics", graphicsPointer);
-		return var;
+		Util::Array<Util::KeyValuePair<Util::StringAtom, void*>> retArr;
+		retArr.Append(Util::KeyValuePair<Util::StringAtom, void*>("graphicsEntityID", &this->graphicsEntity));
+		return retArr;
 	}
 
 }

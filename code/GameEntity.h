@@ -69,13 +69,13 @@ namespace ECS
 		/// <param name="msg">the message received</param>
 		void onMessage(Message msg); 
 		void makeCharacter(Util::StringAtom modelName, Util::StringAtom tag, Util::StringAtom entityID, float x, float y, float z);
-		void addVar(Util::KeyValuePair<Util::StringAtom, void*> var);
-		void* getVar(Util::StringAtom varName);
+		void registerVar(Util::StringAtom compName, Util::Array<Util::KeyValuePair<Util::StringAtom, void*>> vars);
+		void* getVar(Util::StringAtom compName,Util::StringAtom varName);
 		void removeVar(Util::StringAtom varName);
 	private:
 		Util::StringAtom ID;
 		Util::HashTable<Util::StringAtom, Ptr<BaseComponent>> _components;
-		Util::HashTable<Util::StringAtom, void*> componentVars;
+		Util::HashTable<Util::StringAtom, Util::Array<Util::KeyValuePair<Util::StringAtom, void*>>> componentVars;
 	};
 
 }

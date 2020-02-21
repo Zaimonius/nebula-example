@@ -42,13 +42,7 @@ namespace ECS
 
 	}
 
-	Util::HashTable<Util::StringAtom, void*> TransformComponent::getVars()
-	{
-		Util::HashTable<Util::StringAtom, void*> varTable;
-		Math::matrix44* varPtr = &this->transform;
-		varTable["transform"] = varPtr;
-		return varTable;
-	}
+
 
 	void TransformComponent::move(float x, float y, float z)
 	{
@@ -77,12 +71,11 @@ namespace ECS
 		return this->transform;
 	}
 
-	Util::KeyValuePair<Util::StringAtom, void*> TransformComponent::getVar()
+	Util::Array<Util::KeyValuePair<Util::StringAtom, void*>> TransformComponent::getVars()
 	{
-		Math::matrix44* transformPointer = &this->transform;
-		Util::KeyValuePair<Util::StringAtom, void*> var("transform", transformPointer);
-		return var;
+		Util::Array<Util::KeyValuePair<Util::StringAtom, void*>> retArr;
+		retArr.Append(Util::KeyValuePair<Util::StringAtom, void*>("transform",&this->transform));
+		return retArr;
 	}
-
 
 }

@@ -34,6 +34,7 @@ namespace ECS
 
 	void GameEntity::init()
 	{
+		///register component vars here!!!
 		Util::HashTable< Util::StringAtom, Ptr<BaseComponent>>::Iterator iterator = this->_components.Begin();
 		for (int i = 0; i < this->_components.Size(); i++)
 		{
@@ -63,12 +64,12 @@ namespace ECS
 	void GameEntity::addComponent(Util::StringAtom compName, Ptr<BaseComponent> component)
 	{
 		this->_components.Add(compName, component);
-		this->addVar(component->getVar());
+		this->registerVar(compName,component->getVars());
 	}
 
 	void GameEntity::removeComponent(Util::StringAtom compName)
 	{
-
+		this->componentVars.Erase(compName);
 		this->_components.Erase(compName);
 	}
 
@@ -82,7 +83,6 @@ namespace ECS
 
 	}
 
-
 	void GameEntity::makeCharacter(Util::StringAtom modelName, Util::StringAtom tag, Util::StringAtom entityID, float x, float y, float z)
 	{
 		this->setID(entityID);
@@ -93,18 +93,33 @@ namespace ECS
 		graphics->move(transform->getTransform());
 		this->addComponent("transform",transform);
 		this->addComponent("graphics",graphics);
-		this->addVar(transform->getVar());
-		this->addVar(graphics->getVar());
 	}
 
-	void GameEntity::addVar(Util::KeyValuePair<Util::StringAtom, void*> var)
+	void GameEntity::registerVar(Util::StringAtom compName, Util::Array<Util::KeyValuePair<Util::StringAtom,void*>> vars)
 	{
-		this->componentVars.Add(var);
+		if (this->componentVars.Contains(compName))
+		{
+			for (int i = 0; i < this->componentVars[compName].Size(); i++)
+			{
+				if (this->componentVars[compName].Find())
+				{
+					//check if in table else add...
+				}
+			}
+		}
+		this->componentVars.Add(compName,vars);
 	}
 
-	void* GameEntity::getVar(Util::StringAtom varName)
+	void* GameEntity::getVar(Util::StringAtom compName,Util::StringAtom varName)
 	{
-		return this->componentVars[varName];
+		for (int i = 0; i < this->componentVars[compName].Size(); i++)
+		{
+			if (this->componentVars[compName][i].Key() == varName)
+			{
+				return this->componentVars[compName][i].Value();
+			}
+		}
+		return nullptr;
 	}
 
 	void GameEntity::removeVar(Util::StringAtom varName)

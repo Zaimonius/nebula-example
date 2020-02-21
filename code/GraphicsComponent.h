@@ -26,7 +26,7 @@ namespace ECS
 		void move(Math::matrix44 transform);
 		void recieveMessage(Message msg);
 		void registerObservable(Util::StringAtom modelName, Util::StringAtom tag,Math::matrix44 transform);
-		Util::KeyValuePair<Util::StringAtom, void*> getVar();
+		Util::Array<Util::KeyValuePair<Util::StringAtom, void*>> getVars();
 	private:
 		Graphics::GraphicsEntityId graphicsEntity;
 	};
