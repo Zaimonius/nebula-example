@@ -34,11 +34,11 @@ namespace ECS
 
 	void GameEntity::init()
 	{
-		///register component vars here!!!
 		Util::HashTable< Util::StringAtom, Ptr<BaseComponent>>::Iterator iterator = this->_components.Begin();
 		for (int i = 0; i < this->_components.Size(); i++)
 		{
 			(*iterator.val)->init();
+			registerVar(*iterator.key,iterator.val->get()->getVars()); ///register component vars here!!!
 			iterator++;
 		}
 	}
@@ -54,7 +54,6 @@ namespace ECS
 		this->_components.Clear();
 		this->componentVars.Clear();
 	}
-
 
 	void GameEntity::setID(Util::StringAtom entityID)
 	{
@@ -99,15 +98,14 @@ namespace ECS
 	{
 		if (this->componentVars.Contains(compName))
 		{
-			for (int i = 0; i < this->componentVars[compName].Size(); i++)
+			for (int i = 0; i < vars.Size(); i++)
 			{
-				if (this->componentVars[compName].Find())
+				if (!this->componentVars[compName].Find(vars[i]))
 				{
-					//check if in table else add...
+					this->componentVars[compName].Append(vars[i]);
 				}
 			}
 		}
-		this->componentVars.Add(compName,vars);
 	}
 
 	void* GameEntity::getVar(Util::StringAtom compName,Util::StringAtom varName)
