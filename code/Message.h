@@ -22,6 +22,7 @@ namespace ECS
 		MessageType message;
 		float delay;
 		void* extraInfo;
+		///standard constructor for setting all the values
 		Message(Util::StringAtom senderID, Util::StringAtom receiverID, MessageType message, int delay, void* extraInfo);
 		Message();
 	};

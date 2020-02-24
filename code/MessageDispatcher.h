@@ -16,27 +16,13 @@ namespace ECS
 	{
 		__DeclareSingleton(MessageDispatcher);
 	public:
-		/// <summary>
 		/// empty constructor
-		/// </summary>
 		MessageDispatcher();
-		/// <summary>
 		/// deletes the instance
-		/// </summary>
 		~MessageDispatcher();
-		/// <summary>
 		/// sends the message to th entity
-		/// </summary>
-		/// <param name="msg">the message you want to send</param>
 		void DispatchMessage(Message msg);
-		/// <summary>
 		/// method for constucting a message and then sending it
-		/// </summary>
-		/// <param name="senderID">id string of the sender</param>
-		/// <param name="receiverID">id string of the receiver</param>
-		/// <param name="message">message type</param>
-		/// <param name="delay">the dealy of the message</param>
-		/// <param name="extraInfo">extra info if you want</param>
 		void SendMessage(Util::StringAtom senderID, Util::StringAtom receiverID, MessageType message, int delay, void* extraInfo);
 	private:
 	};

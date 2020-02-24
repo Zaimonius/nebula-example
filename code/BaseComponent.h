@@ -11,19 +11,15 @@ namespace ECS
 	{
 		__DeclareAbstractClass(BaseComponent);
 	public:
-		/// <summary>
 		/// virtual void init method for all components
-		/// </summary>
 		virtual void init() = 0;
-		/// <summary>
-		/// virtual void init method for all components
-		/// </summary>
+		/// virtual void update method for all components
 		virtual void update() = 0;
-		/// <summary>
-		/// virtual void init method for all components
-		/// </summary>
+		/// virtual void shutdown method for all components
 		virtual void shutdown() = 0;
+		///virtual void method for all components to receive messages
 		virtual void recieveMessage(Message msg) = 0;
+		///virtual method for getting a components variables as an array
 		virtual Util::Array<Util::KeyValuePair<Util::StringAtom,void*>> getVars() = 0;
 	private:
 	};
